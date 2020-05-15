@@ -25,8 +25,14 @@ requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
+## Get Data
+get_data: requirements
+	wget http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip -O data/raw/caption_datasets.zip
+	unzip data/raw/caption_datasets.zip -d data/interim/
+
 ## Make Dataset
-data: requirements
+data: 
+	requirements
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
 
 ## Delete all compiled Python files
