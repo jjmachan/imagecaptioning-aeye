@@ -15,7 +15,8 @@ class ImageCaptioner():
 
     def __init__(self, word_map_file):
         beam_size = 3
-        self.word_map = json.load(open(word_map_file, 'r'))
+        with open(word_map_file, 'r') as file:
+            self.word_map = json.load(file)
         self.vocab_size = len(self.word_map)
         self.rev_word_map = {v:key for key, v in self.word_map.items()}
 
@@ -49,7 +50,9 @@ class ImageCaptioner():
         encoder = Encoder()
 
         # Initialize model
-        checkpoint = torch.load(checkpoint_path)
+        # load to cpu
+        device = torch.device('cpu')
+        checkpoint = torch.load(checkpoint_path, map_location=device)
         decoder_state = checkpoint['decoder_state']
         encoder_state = checkpoint['encoder_state']
         decoder.load_state_dict(decoder_state)
