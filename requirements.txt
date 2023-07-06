@@ -2,4 +2,4 @@ imageio==2.8.0
 nltk==3.5
 numpy==1.18.4
 Pillow==7.1.2
-scipy==1.1.0
+scipy==1.10.0
